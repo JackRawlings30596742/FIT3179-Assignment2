@@ -1,0 +1,58 @@
+{
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 700,
+  "height": 550,
+  "title": "AirBnB Price per Neighbourhood",
+  "projection": {
+    "type": "equirectangular",
+    "center": [145.1, -37.95],
+    "scale": 25000
+  },
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/JackRawlings30596742/FIT3179-Assignment2/main/Melb.json",
+        "format": {"type": "topojson", "feature": "AUS_adm2"}
+      },
+      "mark": {
+        "type": "geoshape",
+        "fill": "#eee",
+        "stroke": "#757575",
+        "strokeWidth": 0.5
+      }
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/JackRawlings30596742/FIT3179-Assignment2/main/price_by_neighbourhood.csv"
+      },
+      "mark": {"type": "square", "tooltip": {"content": "data"}},
+      "encoding": {
+        "longitude": {"field": "longitude", "type": "quantitative"},
+        "latitude": {"field": "latitude", "type": "quantitative"},
+        "color": {
+          "field": "price",
+          "type": "quantitative",
+          "scale": {
+            "type": "threshold",
+            "domain": [50, 125, 200],
+            "scheme": "reds"
+          },
+          "legend": {"format": ".1s"}
+        },
+        "tooltip": [
+          {
+            "field": "price",
+            "type": "quantitative",
+            "title": "Average Price per night ($AUD)"
+          },
+          {
+            "field": "neighbourhood",
+            "type": "nominal",
+            "title": "neighbourhood"
+          }
+        ]
+      }
+    }
+  ],
+  "config": {}
+}
